@@ -1,0 +1,36 @@
+---
+title: 'LAB 56: MERGE WOS_SCOPUS'
+author: "PRISCILA C. O."
+date: "2024-04-19"
+output: html_document
+---
+```{r}
+library(bibliometrix)
+library(xlsx)
+library(bibliometrixData)
+```
+
+importar WOS
+```{r}
+wos_data <- convert2df("WOS.txt")
+```
+
+importar SCOPUS
+```{r}
+scopus_data = convert2df("SCOPUS.bib", dbsource = "scopus" , format = "bibtex")
+```
+combinar ambas bases de datos
+```{r}
+wos_scopus=mergeDbSources(wos_data,scopus_data,remove.duplicated = T)
+```
+
+exportar fusión
+```{r}
+write.xlsx(wos_scopus, "wos_scopus.xlsx")
+```
+
+```{r}
+biblioshiny()
+```
+
+
